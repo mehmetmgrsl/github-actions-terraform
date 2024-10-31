@@ -37,5 +37,8 @@ jobs:
     - name: Apply Terraform changes
       run: terraform -chdir="./terraform" apply -var-file="terraform.tfvars" --auto-approve
 
+    - name: Destroy Terraform-managed infrastructure
+      run: terraform -chdir="./terraform" destroy -var-file="terraform.tfvars" --auto-approve
+
     - name: Clean up
-      run: rm tfplan
+      run: rm ./terraform/tfplan
