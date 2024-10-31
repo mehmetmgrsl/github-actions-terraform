@@ -29,7 +29,7 @@ jobs:
         terraform_version: 1.0.0
 
     - name: Initialize Terraform
-      run: terraform init -chdir="./terraform"  -backend-config="bucket=s310312024-001" -backend-config="key=terraform.tfstate" -backend-config="region=eu-central-1"
+      run: terraform -chdir="./terraform" init -backend-config="bucket=s310312024-001" -backend-config="key=terraform.tfstate" -backend-config="region=eu-central-1"
 
     - name: Plan Terraform changes
       run: terraform plan  -var-file="terraform.tfvars" -out=tfplan
