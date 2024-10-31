@@ -32,10 +32,10 @@ jobs:
       run: terraform -chdir="./terraform" init -backend-config="bucket=s310312024-001" -backend-config="key=terraform.tfstate" -backend-config="region=eu-central-1"
 
     - name: Plan Terraform changes
-      run: terraform plan  -var-file="terraform.tfvars" -out=tfplan
+      run: terraform -chdir="./terraform" plan  -var-file="terraform.tfvars" -out=tfplan
 
     - name: Apply Terraform changes
-      run: terraform apply -var-file="terraform.tfvars" --auto-approve
+      run: terraform -chdir="./terraform" apply -var-file="terraform.tfvars" --auto-approve
 
     - name: Clean up
       run: rm tfplan
