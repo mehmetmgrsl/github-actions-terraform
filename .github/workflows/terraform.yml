@@ -4,6 +4,8 @@ on:
   push:
     branches:
     - main
+env:
+  TF_WORKING_DIR: "./terraform"
 
 jobs:
   terraform:

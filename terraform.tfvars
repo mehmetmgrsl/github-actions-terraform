@@ -1,5 +1,0 @@
-key_name       = "ec2-test"
-instance_type  = "t2.micro"
-aws_region     = "eu-central-1"
-name           = "dev-instance"
-ami_name       = "ami-06b21ccaeff8cd686"
