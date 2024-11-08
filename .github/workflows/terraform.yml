@@ -32,6 +32,11 @@ jobs:
         -backend-config="key=terraform.tfstate"
         -backend-config="region=eu-central-1"
 
+    - name: Install TFLint
+      run: |
+        curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+        sudo mv tflint /usr/local/bin        
+
     - name: Terraform lint
       run: terraform -chdir="./terraform" tflint
 
