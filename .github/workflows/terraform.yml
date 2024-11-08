@@ -22,23 +22,30 @@ jobs:
         aws-region: '${{ secrets.AWS_REGION }}'
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
 
-
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.0.0
 
     - name: Initialize Terraform
-      run: terraform -chdir="./terraform" init -backend-config="bucket=s310312024-001" -backend-config="key=terraform.tfstate" -backend-config="region=eu-central-1"
+      run: terraform -chdir="./terraform" init -backend-config="bucket=s310312024-001"
+        -backend-config="key=terraform.tfstate"
+        -backend-config="region=eu-central-1"
+
+    - name: Terraform lint
+      run: tflint
 
     - name: Plan Terraform changes
-      run: terraform -chdir="./terraform" plan  -var-file="terraform.tfvars" -out=tfplan
+      run: terraform -chdir="./terraform" plan  -var-file="terraform.tfvars"
+        -out=tfplan
 
     - name: Apply Terraform changes
-      run: terraform -chdir="./terraform" apply -var-file="terraform.tfvars" --auto-approve
+      run: terraform -chdir="./terraform" apply -var-file="terraform.tfvars"
+        --auto-approve
 
     - name: Destroy Terraform-managed infrastructure
-      run: terraform -chdir="./terraform" destroy -var-file="terraform.tfvars" --auto-approve
+      run: terraform -chdir="./terraform" destroy -var-file="terraform.tfvars"
+        --auto-approve
 
     - name: Clean up
       run: rm ./terraform/tfplan
