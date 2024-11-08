@@ -33,7 +33,7 @@ jobs:
         -backend-config="region=eu-central-1"
 
     - name: Terraform lint
-      run: tflint
+      run: terraform -chdir="./terraform" tflint
 
     - name: Plan Terraform changes
       run: terraform -chdir="./terraform" plan  -var-file="terraform.tfvars"
