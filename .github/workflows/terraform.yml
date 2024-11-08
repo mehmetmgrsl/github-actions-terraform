@@ -37,7 +37,7 @@ jobs:
         curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
     - name: Terraform lint
-      run: terraform -chdir="./terraform" tflint
+      run: tflint ./terraform
 
     - name: Plan Terraform changes
       run: terraform -chdir="./terraform" plan  -var-file="terraform.tfvars"
