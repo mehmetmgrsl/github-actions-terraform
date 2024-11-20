@@ -28,9 +28,7 @@ jobs:
         terraform_version: 1.0.0
 
     - name: Initialize Terraform
-      run: terraform -chdir="./terraform" init -backend-config="bucket=s310312024-001"
-        -backend-config="key=terraform.tfstate"
-        -backend-config="region=eu-central-1"
+      run: terraform -chdir="./terraform" init -ba  ckend-config="bucket=s310312024-001" -backend-config="key=terraform.tfstate" -backend-config="region=eu-central-1"
 
     - name: Install TFLint
       run: |
@@ -40,16 +38,17 @@ jobs:
       run: tflint --chdir=./terraform
 
     - name: Plan Terraform changes
-      run: terraform -chdir="./terraform" plan  -var-file="terraform.tfvars"
-        -out=tfplan
+      run: terraform -chdir="./terraform" plan  -var-file="terraform.tfvars" -out=tfplan
+
+    - name: Wait for Manual Approval
+      if: ${{ github.event_name == 'workflow_dispatch' }}
+      run: echo "Waiting for manual approval..."
 
     - name: Apply Terraform changes
-      run: terraform -chdir="./terraform" apply -var-file="terraform.tfvars"
-        --auto-approve
+      run: terraform -chdir="./terraform" apply -input=false tfplan
 
     - name: Destroy Terraform-managed infrastructure
-      run: terraform -chdir="./terraform" destroy -var-file="terraform.tfvars"
-        --auto-approve
+      run: terraform -chdir="./terraform" destroy -var-file="terraform.tfvars" --auto-approve
 
     - name: Clean up
       run: rm ./terraform/tfplan
