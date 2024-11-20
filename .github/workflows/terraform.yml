@@ -28,7 +28,7 @@ jobs:
         terraform_version: 1.0.0
 
     - name: Initialize Terraform
-      run: terraform -chdir="./terraform" init -ba  ckend-config="bucket=s310312024-002" -backend-config="key=terraform.tfstate" -backend-config="region=eu-central-1"
+      run: terraform -chdir="./terraform" init -backend-config="bucket=s310312024-002" -backend-config="key=terraform.tfstate" -backend-config="region=eu-central-1"
 
     - name: Install TFLint
       run: |
